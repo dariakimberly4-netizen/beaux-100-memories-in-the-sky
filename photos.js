@@ -1,6 +1,5 @@
 const RAW='https://raw.githubusercontent.com/dariakimberly4-netizen/beaux-birthday-scrapbook/main/assets/photos/';
 
-// Photos already hosted reliably in the scrapbook repository.
 const base=[
 'IMG-20260705-WA0002.jpg',
 'IMG-20260710-WA0001.jpg',
@@ -16,8 +15,6 @@ const septMain=Array.from({length:84},(_,i)=>i+1)
   .map(n=>`IMG-20260903-WA${String(n).padStart(4,'0')}.jpg`);
 const githubPhotos=[...base,...septMain].map(name=>RAW+name);
 
-// These 17 originals live in the shared Drive folder. Use Google's thumbnail
-// endpoint because it is much more reliable in GitHub Pages than uc?export=view.
 const driveIds=[
 '161zln6dYkrk5dJRkI1TnGOsO0TMOE8YC',
 '1D114VqDItbkf4YVfl8XVLUd-FumLnbCF',
@@ -40,7 +37,6 @@ const driveIds=[
 const drivePhotos=driveIds.map(id=>`https://drive.google.com/thumbnail?id=${id}&sz=w1600`);
 window.BEAUX_PHOTOS=[...githubPhotos,...drivePhotos];
 
-// Larger memory reveals and full-screen viewer.
 const sizeStyle=document.createElement('style');
 sizeStyle.textContent=`
 .photo-chip{
@@ -55,9 +51,29 @@ sizeStyle.textContent=`
   max-width:98vw!important;
   max-height:86vh!important;
 }
+
+/* Make every candle easier to tap and prevent lit candles from blocking others. */
+.candle{
+  width:48px!important;
+  height:88px!important;
+  z-index:3!important;
+}
+.candle .stick,
+.candle .flame{
+  pointer-events:none!important;
+}
+.candle.lit{
+  pointer-events:none!important;
+  z-index:1!important;
+}
+
 @media(max-width:430px){
   .photo-chip{
     width:min(52vw,220px)!important;
+  }
+  .candle{
+    width:50px!important;
+    height:92px!important;
   }
   #viewer{
     padding-left:6px!important;
