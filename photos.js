@@ -40,11 +40,33 @@ const driveIds=[
 const drivePhotos=driveIds.map(id=>`https://drive.google.com/thumbnail?id=${id}&sz=w1600`);
 window.BEAUX_PHOTOS=[...githubPhotos,...drivePhotos];
 
-// Make memory reveals clearly larger on phones while keeping them easy to tap.
+// Larger memory reveals and full-screen viewer.
 const sizeStyle=document.createElement('style');
 sizeStyle.textContent=`
-.photo-chip{width:clamp(160px,44vw,235px)!important;max-height:32vh!important;}
-.b-photo{width:clamp(42px,8.5vw,68px)!important;height:clamp(34px,6.6vw,54px)!important;}
-@media(max-width:430px){.photo-chip{width:min(46vw,190px)!important;}}
+.photo-chip{
+  width:clamp(180px,50vw,285px)!important;
+  max-height:38vh!important;
+}
+.b-photo{
+  width:clamp(48px,9vw,76px)!important;
+  height:clamp(38px,7vw,60px)!important;
+}
+#viewer img{
+  max-width:98vw!important;
+  max-height:86vh!important;
+}
+@media(max-width:430px){
+  .photo-chip{
+    width:min(52vw,220px)!important;
+  }
+  #viewer{
+    padding-left:6px!important;
+    padding-right:6px!important;
+  }
+  #viewer img{
+    max-width:98vw!important;
+    max-height:88vh!important;
+  }
+}
 `;
 document.head.appendChild(sizeStyle);
